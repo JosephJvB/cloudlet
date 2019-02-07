@@ -3,6 +3,11 @@ const express = require('express')
 const server = express()
 server.use(express.json())
 
+server.use('*', (req, res) => {
+  console.log('REQ GET')
+  res.send('REQ GOT')
+})
+
 server.get('/lab-test', (req, res) => {
   console.log('i wonder where these go?')
   res.status(200).send('GR8 SUCCESS')
