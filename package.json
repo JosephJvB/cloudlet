@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/JosephJvB/cloudlet#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "got": "^9.6.0"
   }
 }

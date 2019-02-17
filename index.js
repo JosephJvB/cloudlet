@@ -2,20 +2,18 @@ const express = require('express')
 const fs = require('fs')
 const path = require('path')
 
+const GithubAPI = require('./github-api')
+
+// i can set env vars like this, but it means I have to manually update the SECRETS.json file on th droplet..
 const config = './SECRETS.json'
 if(fs.existsSync(config)) {
   const data = JSON.parse(fs.readFileSync(config))
   process.env = Object.assign({}, process.env, data)
 }
 
-console.log(process.env.TEST)
-
 const server = express()
 server.use(express.json())
-
-server.get('/', (req, res) => {
-  res.send('hellowpeople')
-})
+server.use('/github', GithubAPI) // "/pages/builds"
 
 const app = server.listen(3000, console.log('RAIN DROP DROP TOP @ 3000'))
 
