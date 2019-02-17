@@ -1,26 +1,42 @@
 const router = require('express').Router()
 const got = require('got')
+const BUILDS_URL = 'https://api.github.com/repos/JosephJvB/JosephJvB.github.io/pages/builds'
+const ME_URL = 'https://api.github.com/users/JosephJvB'
 
 router.get('/pages/builds', (req, res) => {
-  got('https://api.github.com/repos/JosephJvB/JosephJvB.github.io/pages/builds', {
+  got(BUILDS_URL, {
     headers: { Authorization: `token ${process.env.GITHUB_TOKEN}` }
   })
   .then(response => {
     const data = JSON.parse(response.body)
+    let successBuilds = 0 
+    let failedBuilds = 0
+    for(let build of data) {
+      if(build.status === 'built') successBuilds++
+      if(build.status === 'errored') failedBuilds++
+    }
     const buildData = {
       numBuilds: data.length,
-      ...data.reduce((a, d) => {
-        if(d.status === 'built') a.success++
-        if(d.status === 'errored') a.failure++
-        return a
-      }, {success: 0, failure: 0})
+      successBuilds,
+      failedBuilds
     }
     res.status(200).send(buildData)
   })
   .catch(err => {
-    console.log('GITHUB API: REQ BUILD DATA ERROR', err.message)
-    res.status(400).send(err)
+    console.log('G-API-ERROR @pages-repo {IS AUTH ROUTE}', err.message)
+    res.status(500).send(err)
   })
+})
+
+router.get('/joevanbo', (req, res) => {
+  got(ME_URL)
+    .then(response => {
+      res.status(200).send(JSON.parse(response.body))
+    })
+    .catch(err => {
+      console.log('G-API-ERROR @users/JosephJvB')
+      res.status(500).send(err)
+    })
 })
 
 module.exports = router
