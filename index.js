@@ -15,7 +15,10 @@ const server = express()
 server.use(express.json())
 server.use('/github', GithubAPI) // "/pages/builds"
 
-const app = server.listen(3000, console.log('RAIN DROP DROP TOP @ 3000'))
+const app = server.listen(
+  process.env.DROPLET ? 80 : 3000,
+  console.log('RAIN DROP DROP TOP @ 3000')
+)
 
 process.on('uncaughtException', (err) => {
   console.log('ONCE MORE INTO THE BREACH')
