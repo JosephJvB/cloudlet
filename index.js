@@ -11,13 +11,14 @@ if(fs.existsSync(config)) {
   process.env = Object.assign({}, process.env, data)
 }
 
+const PORT = process.env.DROPLET ? 80 : 3000
 const server = express()
 server.use(express.json())
 server.use('/github', GithubAPI) // "/pages/builds"
 
 const app = server.listen(
-  process.env.DROPLET ? 80 : 3000,
-  console.log('RAIN DROP DROP TOP @ 3000')
+  PORT,
+  console.log('SERVER UP @', PORT)
 )
 
 process.on('uncaughtException', (err) => {
