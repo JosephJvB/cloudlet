@@ -1,19 +1,23 @@
 const express = require('express')
+const fs = require('fs')
+const path = require('path')
+
+const config = './SECRETS.json'
+if(fs.existsSync(config)) {
+  const data = JSON.parse(fs.readFileSync(config))
+  process.env = Object.assign({}, process.env, data)
+}
+
+console.log(process.env.TEST)
 
 const server = express()
 server.use(express.json())
 
-server.use('*', (req, res) => {
-  console.log('REQ GET')
-  res.send('REQ GOT')
+server.get('/', (req, res) => {
+  res.send('hellowpeople')
 })
 
-server.get('/lab-test', (req, res) => {
-  console.log('i wonder where these go?')
-  res.status(200).send('GR8 SUCCESS')
-})
-
-const app = server.listen(80, console.log('RAIN DROP DROP TOP @ 80'))
+const app = server.listen(3000, console.log('RAIN DROP DROP TOP @ 3000'))
 
 process.on('uncaughtException', (err) => {
   console.log('ONCE MORE INTO THE BREACH')
