@@ -12,3 +12,9 @@ Hit api's for:
 - linkedin
 
 Dont really care what you do with those api's but I want you to hit them for the sake of trying stuff out.
+
+lets do some work with API from twitch..
+Can we get a thing that sends a message when a stream goes live? Surely
+
+https://glass.twitch.tv/console/apps
+https://dev.twitch.tv/docs/api/webhooks-guide/
