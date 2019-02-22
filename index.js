@@ -25,6 +25,11 @@ server.get('/callback', (req, res) => {
   res.status(202).send(challenge)
 })
 
+server.use((req, res) => {
+  console.log('***', req.method, req.headers, req.url, req.body)
+  res.send(200)
+})
+
 const app = server.listen(
   PORT,
   () => {
