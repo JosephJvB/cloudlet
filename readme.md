@@ -18,3 +18,10 @@ Can we get a thing that sends a message when a stream goes live? Surely
 
 https://glass.twitch.tv/console/apps
 https://dev.twitch.tv/docs/api/webhooks-guide/
+
+so what are my problems at the moment?
+- my webhook subscription request isnt receiving any responseBody (maybe not a problem)
+- the callback url that I gave the webhook doesnt seem to be getting any requests coming into it
+
+What do?
+Try subscribe to a webhook of a popular streamer

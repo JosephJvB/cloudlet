@@ -15,9 +15,14 @@ if(fs.existsSync(config)) {
 const PORT = process.env.DROPLET ? 80 : 3000
 const server = express()
 server.use(express.json())
+// benched
 // server.use('/github', GithubAPI) // "/pages/builds"
-server.use((req, res) => {
-  console.log('YO', req.body)
+// catch twitch challenge here
+server.get('/callback', (req, res) => {
+  console.log('DEETS', req.method, req.headers, req.url, req.body)
+  const challenge = req.query['hub.challenge']
+  console.log('CHALLENGE', challenge)
+  res.send(challenge)
 })
 
 const app = server.listen(
@@ -33,6 +38,6 @@ const app = server.listen(
 
 process.on('uncaughtException', (err) => {
   console.log('ONCE MORE INTO THE BREACH', err)
-  UNSUBSCRIBE(process.env.TWITCH_CLIENT_ID)
+  // UNSUBSCRIBE(process.env.TWITCH_CLIENT_ID)
   app.close(() => process.exit(1))
 })

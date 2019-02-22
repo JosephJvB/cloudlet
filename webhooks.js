@@ -4,19 +4,20 @@ const URL = 'https://api.twitch.tv/helix/webhooks/hub' // ?user_id=USER_ID
 
 function SUBSCRIBE (ID, SECRET) {
   const OPTS = {
-    headers: {'Client-Id': ID, 'Content-Type': 'application/json'},
+    headers: {'Client-Id': ID, 'Content-Type': 'application/json', 'Accept': 'application/json'},
     body: JSON.stringify({
-      'hub.callback': 'http://localhost/callback',
+      'hub.callback': 'https://api.joevanbio.icu/callback',
       'hub.mode': 'subscribe',
-      'hub.topic': 'https://api.twitch.tv/helix/streams?user_id=61614939', // joe
-      'hub.secret': SECRET,
-      'hub.lease_seconds': 20
+      // 'hub.topic': 'https://api.twitch.tv/helix/streams?user_id=61614939', // joe
+      'hub.topic': 'https://api.twitch.tv/helix/users/follows?first=1&to_id=37402112', // shroud 
+      // 'hub.secret': SECRET, // strip it down to the barest bones to debug
+      'hub.lease_seconds': 60
     })
   }
   // headers must be lower-case 'h' or no good!
   got(URL, OPTS)
     .then(res => {
-      console.log('subbd\n')
+      console.log('subbd:', res.statusCode, res.statusMessage, res.body)
     })
     .catch(err => {
       console.error('oop\n', err)
@@ -30,7 +31,7 @@ function UNSUBSCRIBE (ID) {
       'hub.callback': 'http://localhost/callback',
       'hub.mode': 'unsubscribe',
       'hub.topic': 'https://api.twitch.tv/helix/streams?user_id=57156551', // ami
-      'hub.secret': SECRET
+      // 'hub.secret': SECRET
     })
   }
   got(URL, OPTS)
