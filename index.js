@@ -22,7 +22,7 @@ server.get('/callback', (req, res) => {
   console.log('DEETS', req.method, req.headers, req.url, req.body)
   const challenge = req.query['hub.challenge']
   console.log('CHALLENGE', challenge, '\n', req.query)
-  res.send(challenge)
+  res.status(200).send(challenge)
 })
 
 
