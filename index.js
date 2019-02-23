@@ -17,17 +17,19 @@ const server = express()
 server.use(express.json())
 // benched
 // server.use('/github', GithubAPI) // "/pages/builds"
-// catch twitch challenge here
+// catch twitch challenge here & send it back
 server.get('/callback', (req, res) => {
   console.log('DEETS', req.method, req.headers, req.url, req.body)
   const challenge = req.query['hub.challenge']
   console.log('CHALLENGE', challenge, '\n', req.query)
-  res.status(202).send(challenge)
+  res.send(challenge)
 })
 
+
+// trying to catch a post request here: SUCCESS! I think i had the wrong value for userid LOL
 server.use((req, res) => {
   console.log('***', req.method, req.headers, req.url, req.body)
-  res.send(200)
+  res.sendStatus(200)
 })
 
 const app = server.listen(

@@ -8,8 +8,8 @@ function SUBSCRIBE (ID, SECRET) {
     body: JSON.stringify({
       'hub.callback': 'https://api.joevanbio.icu/callback',
       'hub.mode': 'subscribe',
-      'hub.topic': 'https://api.twitch.tv/helix/streams?user_id=61614939', // joe
-      // 'hub.topic': 'https://api.twitch.tv/helix/users/follows?first=1&to_id=37402112', // shroud 
+      // 'hub.topic': 'https://api.twitch.tv/helix/streams?user_id=61614939', // joe
+      'hub.topic': 'https://api.twitch.tv/helix/users/follows?first=1&to_id=137512364', // overwatchleague 
       // 'hub.secret': SECRET, // strip it down to the barest bones to debug
       'hub.lease_seconds': 120
     })
